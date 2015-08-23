@@ -47,6 +47,16 @@ public class Users implements Serializable {
     public Users() {
     }
 
+    public Users(int id, String username, String email, Character role) {
+        super();
+	this.id = id;
+	this.username = username;
+	this.email = email;
+      //  this.password = s;
+	this.role = role;
+    }
+    
+    
     public Users(Integer id) {
         this.id = id;
     }
