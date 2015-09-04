@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="nav_list_selector">#990012</color>
+
+    <color name="hyperlink">#0000A0</color>
+    <color name="good_result">#00FF00</color>
+    <color name="bad_result">#FF0000</color>
+    <color name="graph">#008080</color>
+    <color name="sub_titles">#0C090A</color>
+    <color name="round">#BCC6CC</color>
+    <color name="btn">#3BB9FF</color>
+    <color name="btn2">#8C001A</color>
+
+    <color name="titles">#F88017</color>
+    <color name="Main">#151B54</color>
+
+
+
+</resources>
