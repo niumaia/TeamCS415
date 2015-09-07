@@ -42,7 +42,7 @@
                 android:ems="10"
                 style="@style/Round_text"
                 android:hint="User ID"
-                android:id="@+id/user_id"
+                android:id="@+id/accessID"
                 android:layout_margin="5dp"
                 android:text=""
                 android:layout_gravity="center_horizontal" />
