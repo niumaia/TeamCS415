@@ -53,13 +53,13 @@ public class UserApi {
         return json;
     }
 
-    public JSONObject loginUser(String user_id, String user_password) {
+    public JSONObject loginUser(String username, String password) {
         // Building Parameters
         //Log.i("login user - user functions..", TAG);
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", login_tag));
-        params.add(new BasicNameValuePair("user_id", user_id));
-        params.add(new BasicNameValuePair("user_password", user_password));
+        params.add(new BasicNameValuePair("username", username));
+        params.add(new BasicNameValuePair("password", password));
 
         JSONObject json = jsonParser.getJSONFromUrl(URL, params);
 

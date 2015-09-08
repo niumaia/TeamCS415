@@ -59,14 +59,13 @@ public class UserSessionManager {
     }
 
     //Create login session
-    public void createUserLoginSession(String name, String email,String userid ,String dob,
-                                       String gender,String town,String country){
+    public void createUserLoginSession(String email, String userid){
         // Storing login value as TRUE
         editor.putBoolean(IS_USER_LOGIN, true);
 
         // Storing name in pref
-        editor.putString(KEY_NAME, name);
-        Log.i("user id", userid);
+       // editor.putString(KEY_NAME, name);
+       // Log.i("user id", name);
 
         // Storing email in pref
         editor.putString(KEY_EMAIL, email);
@@ -74,13 +73,13 @@ public class UserSessionManager {
 
         editor.putString(KEY_USERID, userid);
 
-        editor.putString(KEY_UNAME, name);
-        editor.putString(KEY_DOB, dob);
+       // editor.putString(KEY_UNAME, name);
+       // editor.putString(KEY_DOB, dob);
 
-        editor.putString(KEY_GENDER, gender);
-
-        editor.putString(KEY_TOWN, town);
-        editor.putString(KEY_COUNTRY, country);
+       // editor.putString(KEY_GENDER, gender);
+//
+       // editor.putString(KEY_TOWN, town);
+        //editor.putString(KEY_COUNTRY, country);
 
 
 

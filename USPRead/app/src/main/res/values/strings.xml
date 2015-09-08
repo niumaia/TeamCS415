@@ -11,4 +11,13 @@
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- Student Section-->
+    <string name="stud_home">Home</string>
+    <string name="stud_loan">Books on Loan</string>
+    <string name="stud_reserve">Books on Reserve</string>
+    <string name="stud_due">Books Overdue</string>
+
+
+
 </resources>
