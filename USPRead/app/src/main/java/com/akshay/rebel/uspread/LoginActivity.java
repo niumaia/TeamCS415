@@ -49,23 +49,22 @@ public class LoginActivity extends ActionBarActivity {
 
     // JSON Response node names
     private static String KEY_SUCCESS = "success";
-    private static final String KEY_UID = "username";
+    private static final String KEY_UID = "user_id";
 
-   // private static final String KEY_FNAME = "user_fname";
-   // private static final String KEY_LNAME = "user_lname";
+    private static final String KEY_FNAME = "user_fname";
+    private static final String KEY_LNAME = "user_lname";
 
-    private static final String KEY_EMAIL = "email";
-    //private static final String KEY_DOB = "user_dob";
-   // private static final String KEY_GENDER = "user_gender";
-   // private static final String KEY_ADDRESS = "user_address";
-   // private static final String KEY_COUNTRY = "user_country";
-   // private static final String KEY_CONTACT = "user_contact";
-    private static final String KEY_ROLE = "role";
-
+    private static final String KEY_EMAIL = "user_email";
+    private static final String KEY_DOB = "user_dob";
+    private static final String KEY_GENDER = "user_gender";
+    private static final String KEY_ADDRESS = "user_address";
+    private static final String KEY_CONTACT = "user_contact";
+    private static final String KEY_ROLE = "user_role";
 
 
 
-    String email, u_id,userrole;
+
+    String fname,lname,email, u_id, gender, dob, address, contact,userrole;
 
 
     // User Session Manager Class
@@ -164,15 +163,13 @@ public class LoginActivity extends ActionBarActivity {
 
 
                             u_id = json.getString(KEY_UID);
-                           // fname = json_user.getString(KEY_FNAME);
-                           // gender = json_user.getString(KEY_GENDER);
-                          //  dob = json_user.getString(KEY_DOB);
-                          //  address = json_user.getString(KEY_ADDRESS);
-                          //  country = json_user.getString(KEY_COUNTRY);
-                          //  lname = json_user.getString(KEY_LNAME);
-                           // contact = json_user.getString(KEY_CONTACT);
+                            fname = json_user.getString(KEY_FNAME);
+                            gender = json_user.getString(KEY_GENDER);
+                            dob = json_user.getString(KEY_DOB);
+                            address = json_user.getString(KEY_ADDRESS);
+                            lname = json_user.getString(KEY_LNAME);
+                            contact = json_user.getString(KEY_CONTACT);
                             userrole = json_user.getString(KEY_ROLE);
-                          //  country = json_user.getString(KEY_COUNTRY);
                             email = json_user.getString(KEY_EMAIL);
 
                             Log.i("id", u_id);
@@ -213,7 +210,7 @@ public class LoginActivity extends ActionBarActivity {
 
 
                 loginErrorMsg.setText("Logging In...");// inform user on
-                session.createUserLoginSession(email,u_id);
+               // session.createUserLoginSession(fname+" "+lname, email,u_id,dob,gender,address);
 
                 Intent i = new Intent(getApplicationContext(),
                         MainActivity.class);

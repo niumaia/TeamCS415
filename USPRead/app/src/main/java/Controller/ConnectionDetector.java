@@ -3,10 +3,10 @@ package Controller;
 /**
  * Created by Akshay on 9/7/2015.
  */
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
 
 public class ConnectionDetector {
 

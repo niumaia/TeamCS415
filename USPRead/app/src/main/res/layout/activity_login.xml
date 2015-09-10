@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="@mipmap/background">
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                 android:layout_marginRight="30dp"
                 android:singleLine="true"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+
                 android:ems="10"
                 style="@style/Round_text"
                 android:hint="User ID"

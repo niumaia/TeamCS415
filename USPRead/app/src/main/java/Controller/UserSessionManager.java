@@ -1,5 +1,11 @@
 package Controller;
 
+
+/**
+ * Created by Akshay on 9/8/2015.
+ */
+
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,9 +17,6 @@ import com.akshay.rebel.uspread.MainActivity;
 
 import java.util.HashMap;
 
-/**
- * Created by Akshay on 9/8/2015.
- */
 public class UserSessionManager {
 
     // Shared Preferences reference
@@ -48,7 +51,7 @@ public class UserSessionManager {
     public static final String KEY_GENDER = "user_gender";
 
     public static final String KEY_TOWN = "user_town";
-    public static final String KEY_COUNTRY = "user_country";
+
 
     // Constructor
     public UserSessionManager(Context context){
@@ -59,13 +62,14 @@ public class UserSessionManager {
     }
 
     //Create login session
-    public void createUserLoginSession(String email, String userid){
+    public void createUserLoginSession(String name, String email,String userid ,String dob,
+                                       String gender,String town,String country){
         // Storing login value as TRUE
         editor.putBoolean(IS_USER_LOGIN, true);
 
         // Storing name in pref
-       // editor.putString(KEY_NAME, name);
-       // Log.i("user id", name);
+        editor.putString(KEY_NAME, name);
+        Log.i("user id", userid);
 
         // Storing email in pref
         editor.putString(KEY_EMAIL, email);
@@ -73,13 +77,13 @@ public class UserSessionManager {
 
         editor.putString(KEY_USERID, userid);
 
-       // editor.putString(KEY_UNAME, name);
-       // editor.putString(KEY_DOB, dob);
+        editor.putString(KEY_UNAME, name);
+        editor.putString(KEY_DOB, dob);
 
-       // editor.putString(KEY_GENDER, gender);
-//
-       // editor.putString(KEY_TOWN, town);
-        //editor.putString(KEY_COUNTRY, country);
+        editor.putString(KEY_GENDER, gender);
+
+        editor.putString(KEY_TOWN, town);
+
 
 
 
@@ -138,7 +142,7 @@ public class UserSessionManager {
 
         user.put(KEY_TOWN, pref.getString(KEY_TOWN, null));
 
-        user.put(KEY_COUNTRY, pref.getString(KEY_COUNTRY, null));
+
 
 
         // return user
@@ -178,6 +182,12 @@ public class UserSessionManager {
     public boolean isUserLoggedIn(){
         return pref.getBoolean(IS_USER_LOGIN, false);
     }
+
+
+
+
+
+
 
 
 
