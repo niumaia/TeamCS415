@@ -110,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Student ID : "
+                        android:text="Health ID : "
                         android:textStyle="italic"
                         android:id="@+id/id"
                         android:textColor="@color/btn2"
@@ -210,34 +210,34 @@
                         android:textStyle="italic"/>
 
                 </LinearLayout>
-                <!--   <LinearLayout
-                       android:orientation="horizontal"
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"
-                       android:paddingLeft="5dp"
-                       android:paddingRight="5dp"
-                       android:paddingTop="10dp"
-                       android:paddingBottom="10dp"
-                       android:id="@+id/layer7">
+             <!--   <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:id="@+id/layer7">
 
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:textAppearance="?android:attr/textAppearanceMedium"
-                           android:text="Phone : "
-                           android:textStyle="italic"
-                           android:id="@+id/text7"
-                           android:textColor="@color/sub_titles"
-                           android:layout_gravity="left" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Phone : "
+                        android:textStyle="italic"
+                        android:id="@+id/text7"
+                        android:textColor="@color/sub_titles"
+                        android:layout_gravity="left" />
 
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:textAppearance="?android:attr/textAppearanceMedium"
-                           android:id="@+id/user_phone"
-                           android:textStyle="italic"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/user_phone"
+                        android:textStyle="italic"/>
 
-                   </LinearLayout>-->
+                </LinearLayout>-->
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"

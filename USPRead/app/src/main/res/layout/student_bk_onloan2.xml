@@ -2,7 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+
+    >
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,15 +22,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="6dp"
-            android:text="Topic"
+            android:text="Title"
             android:textColor="@color/titles"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/tvDisSubject"
+            android:id="@+id/loan_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Topic"
+            android:text="Title"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/Main" />
     </LinearLayout>
@@ -45,15 +49,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="6dp"
-            android:text="Author"
+            android:text="Due On"
             android:textColor="@color/titles"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/tvDisUser"
+            android:id="@+id/loan_duedate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Author"
+            android:text="Due ON"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/Main" />
     </LinearLayout>
@@ -76,7 +80,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/tvDisDate"
+            android:id="@+id/loan_catnum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cat Num"

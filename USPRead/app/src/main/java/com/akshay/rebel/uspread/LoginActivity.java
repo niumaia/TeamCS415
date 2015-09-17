@@ -210,7 +210,7 @@ public class LoginActivity extends ActionBarActivity {
 
 
                 loginErrorMsg.setText("Logging In...");// inform user on
-               // session.createUserLoginSession(fname+" "+lname, email,u_id,dob,gender,address);
+                session.createUserLoginSession(fname+" "+lname, email,u_id,dob,gender,address);
 
                 Intent i = new Intent(getApplicationContext(),
                         MainActivity.class);

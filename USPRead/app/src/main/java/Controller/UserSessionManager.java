@@ -63,7 +63,7 @@ public class UserSessionManager {
 
     //Create login session
     public void createUserLoginSession(String name, String email,String userid ,String dob,
-                                       String gender,String town,String country){
+                                       String gender,String town){
         // Storing login value as TRUE
         editor.putBoolean(IS_USER_LOGIN, true);
 

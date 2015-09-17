@@ -31,8 +31,13 @@ public class UserApi {
     private static String register_tag = "register";
     private static String login_tag = "login";
 
+
+
+
+
     public UserApi() {
         jsonParser = new JsonParser();
+
     }
 
     public JSONObject registerUser(String username,String email, String password,String gender,
@@ -71,7 +76,18 @@ public class UserApi {
         return json;
     }
 
+    public JSONObject StudentOnLoan(String user_Id) {
+        //String loan = "stud_onloan";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "student_onloan"));
+        params.add(new BasicNameValuePair("user_id",user_Id ));
 
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+        // return json
+        return json;
+
+    }
 
 
     public JSONObject ForgetPassword(String user_id,String user_email) {
@@ -126,7 +142,34 @@ public class UserApi {
     }
 
 
+    public JSONObject Video1() {
+        String video = "video";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "video"));
+        params.add(new BasicNameValuePair("video", video));
 
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+        // return json
+        return json;
+
+    }
+
+    public JSONObject Video() {
+        // Building Parameters
+        String user_id = "user_id";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "student_onloan"));
+        params.add(new BasicNameValuePair("user_id", user_id));
+
+
+        JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+
+        // return json
+        // Log.e("JSON", json.toString());
+        Log.i("return json", TAG);
+        return json;
+    }
 
 
 }
