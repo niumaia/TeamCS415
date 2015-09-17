@@ -3,6 +3,9 @@
   <persistence-unit name="LibrarySystemPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>librarysystem.Users</class>
+    <class>librarysystem.LineItem</class>
+    <class>librarysystem.Transaction</class>
+    <class>librarysystem.Account</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/librarysystem"/>
       <property name="javax.persistence.jdbc.password" value=""/>

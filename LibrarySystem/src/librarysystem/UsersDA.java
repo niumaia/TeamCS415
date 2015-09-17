@@ -22,8 +22,8 @@ public class UsersDA {
 	
 	public UsersDA() throws Exception
 	{
-		dbConn = new dbConnect();
-		db = (Connection)dbConn.getConnector();
+		dbConn = new dbConnect("Staff");
+		db = (Connection)dbConn.getStaffConnector();
 	}
         
  	public boolean authenticate(Users theUser) throws Exception {
