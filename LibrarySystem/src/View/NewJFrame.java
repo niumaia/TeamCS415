@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package View;
-import javax.swing.JButton;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.GroupLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
+import librarysystem.UsersDA;
+import librarysystem.StudentDA;
+import librarysystem.Users;
+import javax.swing.JOptionPane;
+import javax.swing.ButtonGroup;
+import librarysystem.Student;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 /**
  *
  * @author Rebel
@@ -42,6 +43,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -58,80 +60,66 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Password: ");
 
-        //jTextField1.setText("");
-
+        loginType.add(jRadioButton1);
         jRadioButton1.setText("Student");
 
-        jRadioButton2.setText("Library Staff");
-        
-        JButton btnNewButton = new JButton("Login");
-        btnNewButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		if (jTextField1.getText().equals("admin") && jPasswordField1.getText().equals("admin")){
-        			clerkPortal cp = new clerkPortal();
-        			cp.setVisible(true);
-        			System.out.println("True");
-        			setVisible(false); //you can't see me!
-        			dispose();
-        			
-        		}
-        		else 
-        			System.out.println("false");
-        		
-        	}
+        loginType.add(jRadioButton2);
+        jRadioButton2.setText("Staff");
+
+        jButton1.setText("Login");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-        	jPanel2Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(jPanel2Layout.createSequentialGroup()
-        			.addGap(41)
-        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(jPanel2Layout.createSequentialGroup()
-        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING, false)
-        						.addGroup(jPanel2Layout.createSequentialGroup()
-        							.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(jTextField1))
-        						.addGroup(jPanel2Layout.createSequentialGroup()
-        							.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-        							.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-        								.addGroup(jPanel2Layout.createSequentialGroup()
-        									.addGap(25)
-        									.addComponent(btnNewButton))
-        								.addGroup(jPanel2Layout.createSequentialGroup()
-        									.addPreferredGap(ComponentPlacement.RELATED)
-        									.addComponent(jPasswordField1, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)))))
-        					.addContainerGap(57, Short.MAX_VALUE))
-        				.addGroup(Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-        					.addComponent(jRadioButton1)
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addComponent(jRadioButton2)
-        					.addGap(45))))
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField1))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jRadioButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
-        	jPanel2Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(jPanel2Layout.createSequentialGroup()
-        			.addGap(20)
-        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        			.addGap(18)
-        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(jPasswordField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        			.addGap(18)
-        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jRadioButton1)
-        				.addComponent(jRadioButton2))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(btnNewButton)
-        			.addGap(5))
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jButton1))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
-        jPanel2.setLayout(jPanel2Layout);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(230, 140, 312, 176);
+        jPanel2.setBounds(230, 140, 280, 150);
 
         jLabel1.setFont(new java.awt.Font("Adobe Arabic", 1, 24)); // NOI18N
         jLabel1.setText("The University Of The South Pacific ");
@@ -141,7 +129,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Adobe Caslon Pro Bold", 1, 36)); // NOI18N
         jLabel4.setText("Library System");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(240, 80, 250, 40);
+        jLabel4.setBounds(160, 80, 330, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -160,6 +148,97 @@ public class NewJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (jRadioButton1.isSelected()) {
+            authenticateStudent();
+        } else if (jRadioButton2.isSelected()) {
+
+            authenticateStaff();
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select Login Type", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        //   StrongPasswordEncryptor cred = new StrongPasswordEncryptor();
+      //  if (jTextField1.getText().equals("admin") && jPasswordField1.getText().equals("admin"))
+        //   {
+        //      clerkPortal cp = new clerkPortal();
+        //      cp.setVisible(true);
+       //        System.out.println(cred.encryptPassword(new String(jPasswordField1.getPassword())));
+        //       setVisible(false); //you can't see me!
+        //       dispose();
+        //   			
+        //      } else  System.out.println("false");
+    }//GEN-LAST:event_jButton1ActionPerformed
+    private void authenticateStudent() {
+        boolean isValid = false;
+        StudentDA st ;
+         Student std= null;
+         try {
+             st = new StudentDA();
+
+            String username = jTextField1.getText();
+            std = st.getStudentDetails(username);  //.getUser(username);
+            // get the password
+            String plainTextPassword = new String(jPasswordField1.getPassword());
+
+            std.setPassword(plainTextPassword);
+
+            // check the user's password against the encrypted version in the database
+            isValid = st.authenticate(std);
+            
+         }catch(Exception e)
+         {
+              System.out.println(e.getMessage());
+         }
+        
+        if (isValid && std.getStudentStatus().equals("Active")) {
+         
+            
+            try {
+                st = new StudentDA();
+                studPortal SP = new studPortal(st.getStudentDetails(jTextField1.getText()),this);  
+                SP.setVisible(true);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+           
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid login", "Invalid Login", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void authenticateStaff() {
+        try {
+            UsersDA userDAO = new UsersDA();
+
+            String username = jTextField1.getText();
+            Users clerk = userDAO.getUser(username);
+            // get the password
+            String plainTextPassword = new String(jPasswordField1.getPassword());
+
+            clerk.setPassword(plainTextPassword);
+
+            // check the user's password against the encrypted version in the database
+            boolean isValid = userDAO.authenticate(clerk);
+            if (isValid) {
+
+                setVisible(false);
+                clerkPortal cp = new clerkPortal();
+                cp.setLoggedInUser(username);
+                cp.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid login", "Invalid Login", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error during login: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -196,7 +275,9 @@ public class NewJFrame extends javax.swing.JFrame {
         });
     }
 
+    private ButtonGroup loginType = new ButtonGroup();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -208,4 +289,5 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel main_layer;
+    // End of variables declaration//GEN-END:variables
 }
