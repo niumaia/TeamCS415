@@ -9,40 +9,40 @@ public class BookCopy {
 	private int copy;
 	private String edition;
 	private Date year;
-	private String isbn;
+	private String catalog;
 	private int status;
 	
 	private String title; 
-	private String author; 
-	private String cat; 
+	private String author; 	 
 	private String desc;
 
 
-	public BookCopy(int bookid,int copy, String edition, Date year, String isbn,int status ) {
+	public BookCopy(int bookid,int copy, String edition, Date year, String cat,int status,String desc ) {
 
-		this(0, bookid, copy, edition,year, isbn,status);
+		this(0, bookid, copy, edition,year, cat,status,desc);
 	}
-	
-	public BookCopy(int id, int bookid, int copy, String edition, Date year, String isbn,int status){
+                    
+	public BookCopy(int id, int bookid, int copy, String edition, Date year, String cat,int status,String desc){
 		super();
 		this.id = id;
 		this.bookid = bookid;
 		this.copy = copy;
 		this.year = year;
 		this.status = status;
-		this.isbn = isbn;
+		this.catalog = cat;
 		this.edition = edition;
+                this.desc = desc;
 	}
-	
-	public BookCopy(int bookid,int copy, String title, String author,String cat, String isbn, String desc){
+	    
+	public BookCopy(int bookid,int copyid,int copy, String title, String author,String cat, String edn, String desc){
 		super();
-
-		this.id = bookid;
+		this.id = copyid;
+                this.bookid = bookid;
 		this.title = title;
 		this.author = author;
 		this.desc = desc;
-		this.isbn = isbn;
-		this.cat = cat;
+		this.catalog = cat;
+		this.edition = edn;
 		this.copy = copy;
 	}
 	
@@ -80,12 +80,12 @@ public class BookCopy {
 		return author;
 	}
 	
-	public String getcat() {
-		return cat;
-	}
-	
 	public String getdesc() {
 		return desc;
+	}
+        
+        public void setdesc(String s) {
+		this.desc = s;
 	}
 	
 	
@@ -97,12 +97,12 @@ public class BookCopy {
 		this.edition = ed;
 	}
 
-	public String getisbn() {
-		return isbn;
+	public String getcatalogNo() {
+		return catalog;
 	}
 
-	public void setisbn(String isbn) {
-		this.isbn = isbn;
+	public void seticatalogNo(String s) {
+		this.catalog = s;
 	}
 
 	public Date getYear() {
