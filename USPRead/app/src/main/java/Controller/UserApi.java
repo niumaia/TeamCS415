@@ -88,6 +88,30 @@ public class UserApi {
         return json;
 
     }
+    public JSONObject StudentReserve(String user_Id) {
+        //String loan = "stud_onloan";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "student_reserve"));
+        params.add(new BasicNameValuePair("user_id",user_Id ));
+
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+        // return json
+        return json;
+
+    }
+    public JSONObject StudentDue(String user_Id) {
+        //String loan = "stud_onloan";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "student_due"));
+        params.add(new BasicNameValuePair("user_id",user_Id ));
+
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+        // return json
+        return json;
+
+    }
 
 
     public JSONObject ForgetPassword(String user_id,String user_email) {

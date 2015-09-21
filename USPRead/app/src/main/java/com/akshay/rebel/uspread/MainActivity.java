@@ -61,7 +61,10 @@ public class MainActivity extends ActionBarActivity
                 objFragment = new StudentOnLoan();
                 break;
             case 2:
-                objFragment = new Video();
+                objFragment = new StudentReserve();
+                break;
+            case 3:
+                objFragment = new StudentDue();
                 break;
 
         }
