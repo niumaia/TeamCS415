@@ -26,7 +26,7 @@ import Controller.UserApi;
 import Controller.UserSessionManager;
 
 
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity2 extends ActionBarActivity {
 
     private String TAG = "login activity";
 
@@ -101,7 +101,7 @@ public class LoginActivity extends ActionBarActivity {
                 } else {
 
                     AlertDialog.Builder adb = new AlertDialog.Builder(
-                            LoginActivity.this);
+                            LoginActivity2.this);
                     adb.setTitle("Missing Data");
                     adb.setMessage("Missing Email and/or Password");
                     adb.setPositiveButton("Ok", null);
@@ -143,7 +143,7 @@ public class LoginActivity extends ActionBarActivity {
 
             if (isInternetPresent) {
 
-                JSONObject json = userFunction.loginUser2(u_id, password);// check
+                JSONObject json = userFunction.loginUser(u_id, password);// check
 
                 try {
                     if (json.getString(KEY_SUCCESS) != null) {// if user found
@@ -213,7 +213,7 @@ public class LoginActivity extends ActionBarActivity {
                 session.createUserLoginSession(fname+" "+lname, email,u_id,dob,gender,address);
 
                 Intent i = new Intent(getApplicationContext(),
-                        MainActivity.class);
+                        MainActivity2.class);
                 startActivity(i);
                 finish();
 

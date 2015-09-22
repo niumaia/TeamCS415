@@ -26,6 +26,7 @@ public class UserApi {
     //  private static String loginURL = "http://scims.usp.ac.fj/~S11074661/loginsff/index.php";
     //  private static String registerURL = "http://scims.usp.ac.fj/~S11074661/loginsff/index.php";
     private static String URL = "http://10.0.2.2/USPRead/index2.php";
+    private static String URL2 = "http://10.0.2.2/USPReadStudent/index2.php";
     //private static String URL = "http://scims.usp.ac.fj/~S11079253/bloodregistry/index2.php";
 
     private static String register_tag = "register";
@@ -69,6 +70,21 @@ public class UserApi {
         params.add(new BasicNameValuePair("user_password", user_password));
 
         JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+
+        // return json
+        // Log.e("JSON", json.toString());
+        Log.i("return json", TAG);
+        return json;
+    }
+    public JSONObject loginUser2(String user_id, String user_password) {
+        // Building Parameters
+        //Log.i("login user - user functions..", TAG);
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", login_tag));
+        params.add(new BasicNameValuePair("user_id", user_id));
+        params.add(new BasicNameValuePair("user_password", user_password));
+
+        JSONObject json = jsonParser.getJSONFromUrl(URL2, params);
 
         // return json
         // Log.e("JSON", json.toString());

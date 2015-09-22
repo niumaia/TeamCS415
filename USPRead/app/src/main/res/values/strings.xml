@@ -19,5 +19,9 @@
     <string name="stud_due">Books Overdue</string>
 
 
+    <string name="clerk_home">Home</string>
+    <string name="clerk_add_bk">New Book</string>
+
+
 
 </resources>
