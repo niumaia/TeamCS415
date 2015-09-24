@@ -57,9 +57,15 @@ public class MainActivity2 extends ActionBarActivity
             case 0:
                 objFragment = new ClerkProfile();
                 break;
-//            case 1:
-//                objFragment = new StudentOnLoan();
-//                break;
+            case 1:
+                objFragment = new ClerkLoans();
+                break;
+            case 2:
+                objFragment = new ClerkReserve();
+                break;
+            case 3:
+                objFragment = new ClerkDue();
+                break;
 
 
         }
@@ -103,7 +109,7 @@ public class MainActivity2 extends ActionBarActivity
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
+            getMenuInflater().inflate(R.menu.main2, menu);
             restoreActionBar();
             return true;
         }

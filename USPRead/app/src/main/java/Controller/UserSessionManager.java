@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.akshay.rebel.uspread.LoginActivity;
 import com.akshay.rebel.uspread.MainActivity;
+import com.akshay.rebel.uspread.UserSelection;
 
 import java.util.HashMap;
 
@@ -159,7 +160,7 @@ public class UserSessionManager {
         editor.commit();
 
         // After logout redirect user to Login Activity
-        Intent i = new Intent(_context, LoginActivity.class);
+        Intent i = new Intent(_context, UserSelection.class);
 
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -170,6 +171,8 @@ public class UserSessionManager {
         // Staring Login Activity
         _context.startActivity(i);
     }
+
+
 
     public void GoWIki()
     {

@@ -48,25 +48,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Total Fine Due:  "
-                android:id="@+id/totalfine" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Total fine here"
-                android:id="@+id/fine_total" />
-        </LinearLayout>
 
         <!-- android:textAppearance="?android:attr/textAppearanceSmall " -->
 

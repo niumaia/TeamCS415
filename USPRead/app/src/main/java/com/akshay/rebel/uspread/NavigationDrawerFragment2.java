@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +22,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import Controller.UserSessionManager;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -57,6 +60,9 @@ public class NavigationDrawerFragment2 extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+
+
+    UserSessionManager session;
 
     public NavigationDrawerFragment2() {
     }
@@ -103,7 +109,9 @@ public class NavigationDrawerFragment2 extends Fragment {
                 android.R.id.text1,
                 new String[]{
                         getString(R.string.clerk_home),
-//                        getString(R.string.clerk_add_bk),
+                        getString(R.string.clerk_loans),
+                        getString(R.string.clerk_reserve),
+                        getString(R.string.clerk_due),
 
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
@@ -248,9 +256,15 @@ public class NavigationDrawerFragment2 extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+            Log.i("lol", "lll");
+            session = new UserSessionManager(getActivity().getApplicationContext());
+
+            session.logoutUser();
+
+
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }

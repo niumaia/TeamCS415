@@ -32,15 +32,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class StudentDue extends Fragment {
+public class ClerkDue extends Fragment {
 
-    private String TAG = "student due";
+    private String TAG = "clerk due";
 
     TextView title, due, catnum;
     ListView reserve_list;
 
     private static String KEY_SUCCESS = "success";
     private static final String KEY_BK_TITLE = "bk_title";
+    private static final String KEY_STUDENTID = "StudentID";
     private static final String KEY_BKCATNUM = "bkCatNum";
     private static final String KEY_ISSUEFINE= "issueFine";
 
@@ -58,7 +59,7 @@ public class StudentDue extends Fragment {
     ImageView networkImage;
     UserSessionManager session;
     String user_Id;
-    public StudentDue()
+    public ClerkDue()
     {
 
     }
@@ -68,7 +69,7 @@ public class StudentDue extends Fragment {
     {
         setHasOptionsMenu(true);
 
-        view = inflater.inflate(R.layout.student_bk_overdue, container, false);
+        view = inflater.inflate(R.layout.clerk_bk_overdue, container, false);
 
         cd = new ConnectionDetector(getActivity().getApplicationContext());
 
@@ -114,7 +115,7 @@ public class StudentDue extends Fragment {
             // email
             isInternetPresent = cd.isConnectingToInternet();
             if(isInternetPresent){
-                jsonreserve = userApi.StudentDue(user_Id);
+                jsonreserve = userApi.ClerkDue(user_Id);
                 try {
                     if (jsonreserve.getString(KEY_SUCCESS) != null) {// if user found then
                         // login
@@ -132,6 +133,7 @@ public class StudentDue extends Fragment {
                                 JSONObject fetch_event = jsonGet.getJSONObject(i);
                                 // Storing  JSON item in a Variable
                                 String bk_title = fetch_event.getString(KEY_BK_TITLE);
+                                String StudentID = fetch_event.getString(KEY_STUDENTID);
                                 String bkCatNum = fetch_event.getString(KEY_BKCATNUM);
                                 String issueFine = fetch_event.getString(KEY_ISSUEFINE);
 
@@ -140,6 +142,7 @@ public class StudentDue extends Fragment {
 
                                 map.put(KEY_BK_TITLE, bk_title);
                                 Log.i(KEY_BK_TITLE + " " + bk_title, bkCatNum);
+                                map.put(KEY_STUDENTID, StudentID);
                                 map.put(KEY_BKCATNUM, bkCatNum);
                                 map.put(KEY_ISSUEFINE, issueFine);
                                 oslist.add(map);
@@ -180,9 +183,9 @@ public class StudentDue extends Fragment {
                 }
 
                 ListAdapter adapter = new SimpleAdapter(getActivity().getApplicationContext(), oslist,
-                        R.layout.student_bk_overdue2,
-                        new String[] { KEY_BK_TITLE, KEY_BKCATNUM, KEY_ISSUEFINE }, new int[] {
-                        R.id.res_title,
+                        R.layout.clerk_bk_overdue2,
+                        new String[] { KEY_BK_TITLE ,KEY_STUDENTID, KEY_BKCATNUM, KEY_ISSUEFINE }, new int[] {
+                        R.id.res_title, R.id.student_id,
                         R.id.res_catnum, R.id.fine,});
                 reserve_list.setAdapter(adapter);
 

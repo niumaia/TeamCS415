@@ -128,6 +128,19 @@ public class UserApi {
         return json;
 
     }
+    public JSONObject StudentSearchBk(String user_Id) {
+        //String loan = "stud_onloan";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "student_search"));
+        params.add(new BasicNameValuePair("user_id",user_Id ));
+        //params.add(new BasicNameValuePair("bk_title",bk_title ));
+
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+        // return json
+        return json;
+
+    }
 
 
     public JSONObject ForgetPassword(String user_id,String user_email) {
@@ -211,5 +224,46 @@ public class UserApi {
         return json;
     }
 
+
+//    Clerk Portal Section--------------------------------------------------------------------------
+public JSONObject ClerkLoans(String user_Id) {
+    //String loan = "clerk_onloan";
+    List<NameValuePair> params = new ArrayList<NameValuePair>();
+    params.add(new BasicNameValuePair("tag", "clerk_onloan"));
+    params.add(new BasicNameValuePair("user_id",user_Id ));
+
+    // getting JSON Object
+    JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+    // return json
+    return json;
+
+}
+
+    public JSONObject ClerkReserve(String user_Id) {
+        //String loan = "stud_onloan";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "clerk_reserve"));
+        params.add(new BasicNameValuePair("user_id",user_Id ));
+
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+        // return json
+        return json;
+
+    }
+
+    public JSONObject ClerkDue(String user_Id) {
+        //String loan = "stud_onloan";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "clerk_due"));
+        params.add(new BasicNameValuePair("user_id",user_Id ));
+
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+        // return json
+        return json;
+
+    }
+//--------------------------------------------------------------------------------------------------
 
 }

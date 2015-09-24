@@ -21,6 +21,9 @@
 
     <string name="clerk_home">Home</string>
     <string name="clerk_add_bk">New Book</string>
+    <string name="clerk_loans">Book on Loan</string>
+    <string name="clerk_reserve">Book on Reserve</string>
+    <string name="clerk_due">Book Overdue</string>
 
 
 

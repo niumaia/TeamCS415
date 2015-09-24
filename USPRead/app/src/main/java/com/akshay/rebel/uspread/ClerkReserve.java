@@ -32,17 +32,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class StudentDue extends Fragment {
+public class ClerkReserve extends Fragment {
 
-    private String TAG = "student due";
+    private String TAG = "clerk reserve";
 
     TextView title, due, catnum;
     ListView reserve_list;
 
     private static String KEY_SUCCESS = "success";
     private static final String KEY_BK_TITLE = "bk_title";
+    private static final String KEY_STUDENTID = "StudentID";
+    private static final String KEY_PICKUPDATE= "pickupDate";
     private static final String KEY_BKCATNUM = "bkCatNum";
-    private static final String KEY_ISSUEFINE= "issueFine";
 
     final UserApi userApi = new UserApi();
 
@@ -58,7 +59,7 @@ public class StudentDue extends Fragment {
     ImageView networkImage;
     UserSessionManager session;
     String user_Id;
-    public StudentDue()
+    public ClerkReserve()
     {
 
     }
@@ -68,7 +69,7 @@ public class StudentDue extends Fragment {
     {
         setHasOptionsMenu(true);
 
-        view = inflater.inflate(R.layout.student_bk_overdue, container, false);
+        view = inflater.inflate(R.layout.clerk_bk_reserve, container, false);
 
         cd = new ConnectionDetector(getActivity().getApplicationContext());
 
@@ -78,7 +79,7 @@ public class StudentDue extends Fragment {
         user_Id = user.get(UserSessionManager.KEY_USERID);
 
 
-        reserve_list = (ListView) view.findViewById(R.id.OverdueList);
+        reserve_list = (ListView) view.findViewById(R.id.ReserveList);
         error = (TextView) view.findViewById(R.id.network);
         error.setVisibility(View.INVISIBLE);
         oslist = new ArrayList<HashMap<String, String>>();
@@ -114,7 +115,7 @@ public class StudentDue extends Fragment {
             // email
             isInternetPresent = cd.isConnectingToInternet();
             if(isInternetPresent){
-                jsonreserve = userApi.StudentDue(user_Id);
+                jsonreserve = userApi.ClerkReserve(user_Id);
                 try {
                     if (jsonreserve.getString(KEY_SUCCESS) != null) {// if user found then
                         // login
@@ -125,23 +126,25 @@ public class StudentDue extends Fragment {
                             // user successfully logged in
                             // Store user details in SQLite Database
                             Log.i("success found..", TAG);
-                            JSONArray jsonGet = jsonreserve.getJSONArray("due");
+                            JSONArray jsonGet = jsonreserve.getJSONArray("reserve");
 
                             for(int i=0;i<jsonGet.length();i++){
 
                                 JSONObject fetch_event = jsonGet.getJSONObject(i);
                                 // Storing  JSON item in a Variable
                                 String bk_title = fetch_event.getString(KEY_BK_TITLE);
+                                String StudentID = fetch_event.getString(KEY_STUDENTID);
+                                String pickupDate = fetch_event.getString(KEY_PICKUPDATE);
                                 String bkCatNum = fetch_event.getString(KEY_BKCATNUM);
-                                String issueFine = fetch_event.getString(KEY_ISSUEFINE);
 
                                 // Adding value HashMap key => value
                                 HashMap<String, String> map = new HashMap<String, String>();
 
                                 map.put(KEY_BK_TITLE, bk_title);
-                                Log.i(KEY_BK_TITLE + " " + bk_title, bkCatNum);
+                                Log.i(KEY_BK_TITLE + " " + pickupDate, bk_title);
+                                map.put(KEY_STUDENTID, StudentID);
+                                map.put(KEY_PICKUPDATE, pickupDate);
                                 map.put(KEY_BKCATNUM, bkCatNum);
-                                map.put(KEY_ISSUEFINE, issueFine);
                                 oslist.add(map);
                             }
 
@@ -176,14 +179,14 @@ public class StudentDue extends Fragment {
 
                 if (jsonreserve.length() ==0){
                     //Log.i("empty", "events");
-                    Toast.makeText(getActivity().getApplicationContext(), "There are no Books overdue", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "There are no Books on reserve", Toast.LENGTH_SHORT).show();
                 }
 
                 ListAdapter adapter = new SimpleAdapter(getActivity().getApplicationContext(), oslist,
-                        R.layout.student_bk_overdue2,
-                        new String[] { KEY_BK_TITLE, KEY_BKCATNUM, KEY_ISSUEFINE }, new int[] {
-                        R.id.res_title,
-                        R.id.res_catnum, R.id.fine,});
+                        R.layout.clerk_bk_reserve2,
+                        new String[] { KEY_BK_TITLE, KEY_STUDENTID, KEY_PICKUPDATE,KEY_BKCATNUM }, new int[] {
+                        R.id.res_title, R.id.student_id, R.id.res_pickdate,
+                        R.id.res_catnum});
                 reserve_list.setAdapter(adapter);
 
                 //onloan_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

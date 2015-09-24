@@ -41,31 +41,11 @@
                 android:layout_marginTop="5dp"
                 android:layout_x="102dp"
                 android:layout_y="19dp"
-                android:text="Books Overdue"
+                android:text="Books On Loan"
                 android:textStyle="bold"
                 android:textColor="@color/titles"
                 android:textSize="30dip" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Total Fine Due:  "
-                android:id="@+id/totalfine" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Total fine here"
-                android:id="@+id/fine_total" />
         </LinearLayout>
 
         <!-- android:textAppearance="?android:attr/textAppearanceSmall " -->
@@ -77,7 +57,7 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/OverdueList"
+            android:id="@+id/OnLoanList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
