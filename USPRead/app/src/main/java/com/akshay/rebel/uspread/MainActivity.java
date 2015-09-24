@@ -66,6 +66,9 @@ public class MainActivity extends ActionBarActivity
             case 3:
                 objFragment = new StudentDue();
                 break;
+            case 4:
+                objFragment = new StudentSearch();
+                break;
 
         }
 
@@ -91,6 +94,7 @@ public class MainActivity extends ActionBarActivity
             case 4:
                 mTitle = getString(R.string.stud_due);
                 break;
+
         }
     }
 

@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/TempBackground">
+
+
+    <TextView
+        android:id="@+id/network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_x="102dp"
+        android:layout_y="19dp"
+        android:textColor="@color/titles"
+        android:textSize="10dip" />
+
+    <!-- Editext for Search -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <EditText android:id="@+id/inputSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/Round_text"
+            android:layout_marginTop="20dp"
+            android:hint="Search Keywords..."
+
+            android:inputType="textVisiblePassword"
+            android:layout_weight="0.25"
+            android:layout_gravity="top" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:id="@+id/search"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <!-- List View -->
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_margin="5dp"
+        android:divider="@color/btn2"
+        android:dividerHeight="1dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

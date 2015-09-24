@@ -128,12 +128,12 @@ public class UserApi {
         return json;
 
     }
-    public JSONObject StudentSearchBk(String user_Id) {
+    public JSONObject StudentSearchBk(String user_Id, String bk_title) {
         //String loan = "stud_onloan";
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", "student_search"));
         params.add(new BasicNameValuePair("user_id",user_Id ));
-        //params.add(new BasicNameValuePair("bk_title",bk_title ));
+        params.add(new BasicNameValuePair("bk_title",bk_title ));
 
         // getting JSON Object
         JSONObject json = jsonParser.getJSONFromUrl(URL, params);
@@ -178,35 +178,8 @@ public class UserApi {
         return json;
     }
 
-    public JSONObject GetFbcGraph(String user_id) {
-        // Building Parameters
-
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("tag", "fbc_graph"));
-        params.add(new BasicNameValuePair("user_id", user_id));
 
 
-        JSONObject json = jsonParser.getJSONFromUrl(URL, params);
-
-        // return json
-        // Log.e("JSON", json.toString());
-        Log.i("return json", TAG);
-        return json;
-    }
-
-
-    public JSONObject Video1() {
-        String video = "video";
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("tag", "video"));
-        params.add(new BasicNameValuePair("video", video));
-
-        // getting JSON Object
-        JSONObject json = jsonParser.getJSONFromUrl(URL, params);
-        // return json
-        return json;
-
-    }
 
     public JSONObject Video() {
         // Building Parameters
