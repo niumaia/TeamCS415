@@ -26,6 +26,8 @@
     <string name="clerk_loans">Book on Loan</string>
     <string name="clerk_reserve">Book on Reserve</string>
     <string name="clerk_due">Book Overdue</string>
+    <string name="clerk_checkout">Book Check Out</string>
+    <string name="clerk_checkin">Book Check In</string>
 
 
 

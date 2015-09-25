@@ -22,6 +22,7 @@ import Controller.ConnectionDetector;
 import Controller.UserSessionManager;
 
 import android.content.Intent;
+import android.widget.Toast;
 
 public class StudentBookDetails extends ActionBarActivity {
 
@@ -52,6 +53,7 @@ public class StudentBookDetails extends ActionBarActivity {
         stat = dash.getStringExtra("copyStat_desc");
 
         res_title.setText(title);
+        Toast.makeText(getApplicationContext(), title, Toast.LENGTH_LONG).show();
         res_auth.setText(author);
         res_edit.setText(edition);
         res_cat.setText(cat);

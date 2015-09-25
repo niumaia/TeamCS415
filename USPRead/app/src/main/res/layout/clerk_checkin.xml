@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Check Out"
+            android:text="Check In"
             android:id="@+id/textView8"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
@@ -72,17 +72,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="ID: "
+                android:text="ISSUE ID: "
                 android:id="@+id/textView9" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-
-                android:hint="book copy id"
-                android:background="@color/round"
-                android:id="@+id/copyid" />
+                android:text="issue ID"
+                android:id="@+id/issueid" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,11 +99,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-
-                android:hint="student id"
-                android:background="@color/round"
+                android:text="Student ID"
                 android:id="@+id/student_id" />
         </LinearLayout>
+
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -114,35 +112,15 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Issue Date: "
-                android:id="@+id/issue" />
+                android:text="Check in Date: "
+                android:id="@+id/isssued" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:hint="issue date"
-                android:background="@color/round"
-                android:id="@+id/issueDate" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Issue Date: "
-                android:id="@+id/issued" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:hint="issue due date"
-                android:background="@color/round"
-                android:id="@+id/issueDueDate" />
+                android:text="ckeck in date"
+                android:id="@+id/checkInDate" />
         </LinearLayout>
 
     </LinearLayout>

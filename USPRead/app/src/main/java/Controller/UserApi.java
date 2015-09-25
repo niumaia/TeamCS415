@@ -237,6 +237,40 @@ public JSONObject ClerkLoans(String user_Id) {
         return json;
 
     }
+
+    public JSONObject ClerkCheckOut(String user_Id, String bk_title, String bkCopyID, String StudentID, String issueDate, String issueDueDate) {
+        //String loan = "stud_onloan";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "clerk_checkout"));
+        params.add(new BasicNameValuePair("user_id",user_Id ));
+        params.add(new BasicNameValuePair("bk_title",bk_title ));
+        params.add(new BasicNameValuePair("bkCopyID",bkCopyID ));
+        params.add(new BasicNameValuePair("StudentID",StudentID ));
+        params.add(new BasicNameValuePair("issueDate",issueDate ));
+        params.add(new BasicNameValuePair("issueDueDate",issueDueDate ));
+
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+        // return json
+        return json;
+
+    }
+
+
+    public JSONObject ClerkCheckIn(String issueID, String checkInDate) {
+        //String loan = "stud_onloan";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "clerk_checkout"));
+        params.add(new BasicNameValuePair("issueID",issueID ));
+        params.add(new BasicNameValuePair("checkInDate",checkInDate ));
+
+
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+        // return json
+        return json;
+
+    }
 //--------------------------------------------------------------------------------------------------
 
 }

@@ -112,6 +112,8 @@ public class NavigationDrawerFragment2 extends Fragment {
                         getString(R.string.clerk_loans),
                         getString(R.string.clerk_reserve),
                         getString(R.string.clerk_due),
+                        getString(R.string.clerk_checkout),
+                        getString(R.string.clerk_checkin),
 
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);

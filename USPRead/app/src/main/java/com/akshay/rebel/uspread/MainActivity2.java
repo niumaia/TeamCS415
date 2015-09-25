@@ -66,6 +66,13 @@ public class MainActivity2 extends ActionBarActivity
             case 3:
                 objFragment = new ClerkDue();
                 break;
+            case 4:
+                objFragment = new ClerkCheckOut();
+                break;
+            case 5:
+                objFragment = new ClerkCheckIn();
+                break;
+
 
 
         }
@@ -92,6 +99,7 @@ public class MainActivity2 extends ActionBarActivity
             case 4:
                 mTitle = getString(R.string.stud_due);
                 break;
+
         }
     }
 
