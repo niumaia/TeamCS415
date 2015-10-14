@@ -40,28 +40,26 @@ public class clerkPortal extends javax.swing.JFrame {
         }
 
         initComponents();
-
-        jTableBook.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+                jTableBook.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel rowSM = jTableBook.getSelectionModel();
-        rowSM.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                //Ignore extra messages.
-                if (e.getValueIsAdjusting()) {
-                    return;
-                }
-
-                ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-                if (lsm.isSelectionEmpty()) {
-                    //     System.out.println("No rows are selected.");
-                } else {
-                    int selectedRow = lsm.getMinSelectionIndex();
-                    Book temp = (Book) jTableBook.getValueAt(selectedRow, BookGrid.OBJECT_COL);
-                    populateBookCopyList();
+            rowSM.addListSelectionListener(new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent e) {
+                    //Ignore extra messages.
+                    if (e.getValueIsAdjusting()) return;
+ 
+                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                    if (lsm.isSelectionEmpty()) {
+                   //     System.out.println("No rows are selected.");
+                    } else {
+                        int selectedRow = lsm.getMinSelectionIndex();
+                        Book  temp = (Book) jTableBook.getValueAt(selectedRow, BookGrid.OBJECT_COL);
+                            populateBookCopyList();
                     //    displayIssueDetails(temp);
+                    }
                 }
-            }
-        });
-
+            });
+        
     }
 
     /**
@@ -1142,19 +1140,19 @@ public class clerkPortal extends javax.swing.JFrame {
         studentId = jTextStudID.getText();
         issueBookCopy(studentId);
         //try{
-
+        
         //  getBookCopyDetails(catalogNumber);
     }//GEN-LAST:event_jButtonCheckOutActionPerformed
 
     private void jButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectActionPerformed
         // TODO add your handling code here:
         catalogNumber = jTextCatNum.getText();
-
-        if (catalogNumber.equals("")) {
-            JOptionPane.showMessageDialog(this, "Enter Catalog Number", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            getBookCopyDetails(catalogNumber);
+        
+        if (catalogNumber.equals(""))
+        {
+            JOptionPane.showMessageDialog(this,  "Enter Catalog Number","Error", JOptionPane.ERROR_MESSAGE);        
         }
+        else getBookCopyDetails(catalogNumber);
     }//GEN-LAST:event_jButtonSelectActionPerformed
 
     private void jButtonUpdateBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateBookActionPerformed
@@ -1198,33 +1196,32 @@ public class clerkPortal extends javax.swing.JFrame {
     private void jButtonSelectInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectInActionPerformed
         // TODO add your handling code here:
         catalogNumber = jTextCatIn.getText();
-
-        if (catalogNumber.equals("")) {
-            JOptionPane.showMessageDialog(this, "Enter Catalog Number", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            getIssueDetails(catalogNumber);
-        }
+        
+        if (catalogNumber.equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Enter Catalog Number","Error", JOptionPane.ERROR_MESSAGE);        
+        }else getIssueDetails(catalogNumber);
     }//GEN-LAST:event_jButtonSelectInActionPerformed
 
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
-        NewJFrame form = new NewJFrame();
-
-        form.setVisible(true);
-        dispose();
+                setVisible(false);
+                NewJFrame form = new NewJFrame();
+                
+                form.setVisible(true);
+                dispose();        
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
     private void jButtonSearchReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchReserveActionPerformed
         // TODO add your handling code here:
-        populateReservedList();
+         populateReservedList();
     }//GEN-LAST:event_jButtonSearchReserveActionPerformed
 
     private void jButtonSearchFineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchFineActionPerformed
         // TODO add your handling code here:
         String studID = jTextID.getText();
         populateFineDetails(studID);
-        TransactionDA transaction;
+        TransactionDA transaction ;
         List<LineItem> itemsList = null;
 
         try {
@@ -1237,119 +1234,123 @@ public class clerkPortal extends javax.swing.JFrame {
 
         FinesGrid model = new FinesGrid(itemsList);
         jTableBookFines.setModel(model);
-
+        
     }//GEN-LAST:event_jButtonSearchFineActionPerformed
 
     private void jButtonProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProcessActionPerformed
-
-        int rowcount = jTableBookFines.getModel().getRowCount();
+         
+        int rowcount =  jTableBookFines.getModel().getRowCount();
         LineItem[] bFines = new LineItem[rowcount];
 
-        for (int row = 0; row < rowcount; row++) {
-            bFines[row] = (LineItem) jTableBookFines.getModel().getValueAt(row, -1);
-        }
-
-        Double total = Double.parseDouble(jTextTotalFine.getText());
-
-        new fineDialog(this, true, bFines, total).setVisible(true);
+      
+    for (int row = 0; row < rowcount; row++){ 
+        bFines[row] =  (LineItem)jTableBookFines.getModel().getValueAt(row, -1);
+    }
+    
+        Double total =  Double.parseDouble(jTextTotalFine.getText());
+        
+        new fineDialog(this, true,bFines,total).setVisible(true);
 
     }//GEN-LAST:event_jButtonProcessActionPerformed
 
-    public void showBalance(Double balance, Double paid, Double subtotal) {
-
+     public void showBalance(Double balance,Double paid,Double subtotal) {
+         
         jTextSubTotal.setText(subtotal.toString());
         jTextDue.setText(balance.toString());
         jTextDebit.setText(paid.toString());
-    }
-
-    public void populateFineDetails(String studID) {
+     }
+    
+     public void populateFineDetails(String studID) { 
         StudentDA student;
         Student s = null;
-        Double total = 0.00;
-
-        try {
-            student = new StudentDA();
-            s = student.getStudentDetails(studID);
-
-        } catch (Exception e) {
+        Double total =0.00;
+        
+        try{
+          student = new StudentDA();
+          s = student.getStudentDetails(studID);
+         
+        }catch(Exception e)   
+        {  
+            e.printStackTrace();
+        }   
+        
+         try{
+          issue = new IssueDA();
+          total = issue.getTotalFines(studID);
+         
+        }catch(Exception e)   
+        {  
             e.printStackTrace();
         }
-
-        try {
-            issue = new IssueDA();
-            total = issue.getTotalFines(studID);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+          
         jTextName.setText(s.getStudentName());
         jTextPhone.setText(s.getStudentPhoneNumber());
         jTextAddress.setText(s.getStudentAddress());
         jTextTotalFine.setText(total.toString());
-    }
-
-    public void checkInBookCopy() {
-
-        String fine, in, student;
+     }
+     
+    public void checkInBookCopy() {        
+       
+        String fine,in,student;
         int due = 1;
         fine = jTextFine.getText();
         student = jTextStudIn.getText();
         java.util.Date inDate = null;
         in = formatDateReturn.getText();
         //int i = Integer.parseInt(fine);
-
+        
         double amt = Float.parseFloat(fine);
-
-        if (fine.equals("")) {
-            due = 2;
-        }
-        // else due = 1;        
+        
+        if(fine.equals("")) due = 2;
+       // else due = 1;        
         BookCopy temp = bookCopy;
-
-        try {
-            IssueDA iss = new IssueDA();
-            inDate = (java.util.Date) dateFormat.parse(in);
-
-            if (due == 1) {
-                addStudentFine(student, inDate, "", temp.getcatalogNo(), amt);
-                //add transaction lines(2) -tive fine ...then wait for payment +fine
-            }
-
-            iss.checkIn(temp, student, inDate, due, amt);
-            updateBookCopy(temp, 1);
-
-            JOptionPane.showMessageDialog(this, "Book Copy Checked In", "Check In", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+         
+         try{
+         IssueDA iss = new IssueDA();
+         inDate = (java.util.Date) dateFormat.parse(in); 
+         
+         if (due == 1)
+         {
+              addStudentFine(student,inDate,"",temp.getcatalogNo(),amt);
+              //add transaction lines(2) -tive fine ...then wait for payment +fine
+         }
+         
+         iss.checkIn(temp, student, inDate,due,amt);
+         updateBookCopy(temp,1);
+         
+          JOptionPane.showMessageDialog(this, "Book Copy Checked In", "Check In", JOptionPane.INFORMATION_MESSAGE);
+         
+         }catch(Exception e){
+             e.printStackTrace();  
+         }        
 
     }
-
-    public void addStudentFine(String student, Date returnDate, String desc, String reference, Double amt) {
-        int transactionID = 0;
-        Transaction t = new Transaction(returnDate, student, desc, reference);
-
+    
+    public void addStudentFine(String student,Date returnDate,String desc,String reference,Double amt)
+    {
+        int transactionID  = 0;       
+        Transaction t = new Transaction(returnDate,student,desc,reference);
+        
         try {
-            transactionDA = new TransactionDA();
-            transactionID = transactionDA.addTransaction(t);
-            // t.setTransactionId(transactionID);
-            transactionDA.addTransactionLine(transactionID, 1, amt, "", reference, returnDate);
-
-        } catch (Exception e) {
+         transactionDA = new TransactionDA();
+         transactionID = transactionDA.addTransaction(t);
+        // t.setTransactionId(transactionID);
+          transactionDA.addTransactionLine(transactionID,1,amt,"",reference,returnDate);
+         
+         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+       
     }
-
-    public void setLoggedInUser(String username) {
+    
+    public void setLoggedInUser(String username)
+    {
         jLabelUser.setText(username.toUpperCase());
     }
-
-    public void populateReservedList() {
-
+    
+     public void populateReservedList(){
+         
         List<Reserve> reserveList = null;
         BookCopyDA bookcopyDA;
 
@@ -1365,7 +1366,7 @@ public class clerkPortal extends javax.swing.JFrame {
 
         //		employeeTable.setModel(model);
         jTableReserved.setModel(model);
-    }
+     }
 
     public void populateBookList() {
         String title, author, pub, isbn;
@@ -1468,26 +1469,26 @@ public class clerkPortal extends javax.swing.JFrame {
         try {
             issue.checkOut(temp, StudentID, out, due);
             //bookCopyDA.updateBookStatus(temp, 2);
-            updateBookCopy(temp, 2);
+            updateBookCopy(temp,2);
             JOptionPane.showMessageDialog(this, "Book Copy has been Issued", "Saved", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(this, "Error Issuing Book: " + exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    public void updateBookCopy(BookCopy t, int status) throws Exception {
+    
+    public void updateBookCopy(BookCopy t,int status) throws Exception {
         BookCopyDA bcDA = new BookCopyDA();
-
+        
         try {
 
-            bcDA.updateBookStatus(t.getId(), status);
-        } catch (Exception exc) {
-            exc.printStackTrace();
+            bcDA.updateBookStatus(t, status);
+            } catch (Exception exc) {
+          exc.printStackTrace();
         }
     }
 
     public void getIssueDetails(String catNum) {
-
+     
         try {
             bookCopyDA = new BookCopyDA();
             issue = new IssueDA();
@@ -1496,18 +1497,19 @@ public class clerkPortal extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-        if (bookissue == null) {
-            JOptionPane.showMessageDialog(this, "Please select another Book", "Book Not Under Issue", JOptionPane.ERROR_MESSAGE);
+        
+        if(bookissue == null)
+        {
+            JOptionPane.showMessageDialog(this,  "Please select another Book","Book Not Under Issue", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+   
         dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         dateFormat.setLenient(false);
 
         jTextAuthorIn.setText(bookCopy.getauthor());
         jTextTitleIn.setText(bookCopy.gettitle());
-        jTextBookIDIn.setText(bookCopy.getbookid() + "");
+        jTextBookIDIn.setText(bookCopy.getbookid()+"");
         jTextCopyNumIn.setText(bookCopy.getcopyNum() + "");
         jTextStudIn.setText(bookissue.getStudentId());
         //jTextStatus.setText(bookCopy.getdesc());
@@ -1526,8 +1528,8 @@ public class clerkPortal extends javax.swing.JFrame {
         if (diff > 0) {
             jTextDays.setText(diff + "");
             jTextFine.setText(diff * fine + "");
-
-            JOptionPane.showMessageDialog(this, "Book overdue. Student Fine will be added", "Book Overdue", JOptionPane.INFORMATION_MESSAGE);
+            
+             JOptionPane.showMessageDialog(this, "Book overdue. Student Fine will be added", "Book Overdue", JOptionPane.INFORMATION_MESSAGE);
         } else {
             jTextDays.setText("0");
         }
@@ -1541,8 +1543,9 @@ public class clerkPortal extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-        if (bookCopy == null) {
+        
+        if(bookCopy == null)
+        {
             JOptionPane.showMessageDialog(this, "No Book Catalog Exists", "Incorrect Catalog Number", JOptionPane.ERROR_MESSAGE);
             return;
         }
