@@ -129,7 +129,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Adobe Caslon Pro Bold", 1, 36)); // NOI18N
         jLabel4.setText("Library System");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(160, 80, 330, 40);
+        jLabel4.setBounds(180, 90, 350, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
