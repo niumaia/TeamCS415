@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package View;
+
 import java.awt.Color;
 import java.awt.*;
 import java.text.DateFormat;
@@ -13,9 +14,18 @@ import java.util.Date;
 import librarysystem.Book;
 import librarysystem.BookGrid;
 import librarysystem.IssueGrid;
+import librarysystem.ReadXMLFile;
+import librarysystem.JournalGrid;
+import librarysystem.Journal;
 import librarysystem.Student;
 import librarysystem.BookDA;
 import librarysystem.IssueDA;
+import librarysystem.XMLHandlerIEEE;
+import librarysystem.XMLHandlerSpringer;
+import librarysystem.JSONHandlerElsiever;
+import java.io.IOException;
+import org.xml.sax.SAXException;
+
 import librarysystem.BookCopyDA;
 import librarysystem.studentbookDA;
 import java.util.List;
@@ -26,71 +36,85 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import librarysystem.Issue;
+
+import librarysystem.JournalGrid;
 import librarysystem.Reserve;
 import librarysystem.ReserveGrid;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
 /**
  *
  * @author Akshay
  */
 public class studPortal extends javax.swing.JFrame {
+
     static private Student student;
     static private javax.swing.JFrame PrevWindow;
-    
-    public studPortal(Student S,javax.swing.JFrame Frame) {
-        
+
+    public studPortal(Student S, javax.swing.JFrame Frame) {
+
         initComponents();
         student = S;
         PrevWindow = Frame;
-        
+
         PrevWindow.setVisible(false);
         jLabel7.setText(student.getStudentName());
         jLabel8.setText(student.getStudentID());
         jLabel9.setText(student.getStudentProgram());
         jLabel10.setText(student.getStudentStatus());
         jLabel3.setText(student.getStudentID());
-        
+
         getUserBooks(student.getStudentID());
         getReservedBooks(student.getStudentID());
-        
+
+        //  ReadXMLFile r = new ReadXMLFile("");
+        //   r.getResults();
+        //   List<Journal> details = r.getSearchResults();
+        //   JournalGrid journalModel = new JournalGrid(details);
+        //   jTableJournals.setModel(journalModel);
         jTableOnLoan.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel rowSM = jTableOnLoan.getSelectionModel();
-            rowSM.addListSelectionListener(new ListSelectionListener() {
-                public void valueChanged(ListSelectionEvent e) {
-                    //Ignore extra messages.
-                    if (e.getValueIsAdjusting()) return;
- 
-                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    if (lsm.isSelectionEmpty()) {
-                   //     System.out.println("No rows are selected.");
-                    } else {
-                        int selectedRow = lsm.getMinSelectionIndex();
-                        Issue  temp = (Issue) jTableOnLoan.getValueAt(selectedRow, ReserveGrid.OBJECT_COL);
-                      
-                   //     displayIssueDetails(temp);
-                    }
+        rowSM.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                //Ignore extra messages.
+                if (e.getValueIsAdjusting()) {
+                    return;
                 }
-            });
-            
+
+                ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+                if (lsm.isSelectionEmpty()) {
+                    //     System.out.println("No rows are selected.");
+                } else {
+                    int selectedRow = lsm.getMinSelectionIndex();
+                    Issue temp = (Issue) jTableOnLoan.getValueAt(selectedRow, ReserveGrid.OBJECT_COL);
+
+                    displayIssueDetails(temp);
+                }
+            }
+        });
+
         jTableReserved.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel rSM = jTableReserved.getSelectionModel();
-            rSM.addListSelectionListener(new ListSelectionListener() {
-                public void valueChanged(ListSelectionEvent e) {
-                    //Ignore extra messages.
-                    if (e.getValueIsAdjusting()) return;
- 
-                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    if (lsm.isSelectionEmpty()) {
-                        System.out.println("No rows are selected.");
-                    } else {
-                        int selectedRow = lsm.getMinSelectionIndex();
-                        Reserve  temp = (Reserve) jTableReserved.getValueAt(selectedRow, ReserveGrid.OBJECT_COL);
-                       // System.out.println(temp.getauthor());
-                   //     displayReserveDetails(temp);
-                    }
+        rSM.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                //Ignore extra messages.
+                if (e.getValueIsAdjusting()) {
+                    return;
                 }
-            });
-        
-        
+
+                ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+                if (lsm.isSelectionEmpty()) {
+                    System.out.println("No rows are selected.");
+                } else {
+                    int selectedRow = lsm.getMinSelectionIndex();
+                    Reserve temp = (Reserve) jTableReserved.getValueAt(selectedRow, ReserveGrid.OBJECT_COL);
+                    // System.out.println(temp.getauthor());
+                    //     displayReserveDetails(temp);
+                }
+            }
+        });
 
     }
 
@@ -154,6 +178,22 @@ public class studPortal extends javax.swing.JFrame {
         jTextField12 = new javax.swing.JTextField();
         jButtonSearch2 = new javax.swing.JButton();
         jButtonClear2 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jTextTi = new javax.swing.JTextField();
+        jTextAu = new javax.swing.JTextField();
+        jTextKey = new javax.swing.JTextField();
+        jTextPub = new javax.swing.JTextField();
+        jButtonSearch3 = new javax.swing.JButton();
+        jButtonClear3 = new javax.swing.JButton();
+        jComboJournal = new javax.swing.JComboBox();
+        jLabel36 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTableJournals = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         MainLayer = new javax.swing.JLabel();
@@ -177,6 +217,7 @@ public class studPortal extends javax.swing.JFrame {
         jButton1.setBounds(670, 40, 90, 23);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.setPreferredSize(new java.awt.Dimension(228, 220));
 
         jLabel1.setText("Name: ");
 
@@ -207,7 +248,8 @@ public class studPortal extends javax.swing.JFrame {
 
         jLabel22.setText("Due Date:");
 
-        jLabel23.setText("Overdue Fine:");
+        jLabel23.setText("Running Fine:");
+        jLabel23.setToolTipText("");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -229,7 +271,7 @@ public class studPortal extends javax.swing.JFrame {
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 24, Short.MAX_VALUE)))
+                                .addGap(0, 7, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,7 +363,7 @@ public class studPortal extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,7 +379,7 @@ public class studPortal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -347,7 +389,7 @@ public class studPortal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -515,7 +557,133 @@ public class studPortal extends javax.swing.JFrame {
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("Search", jPanel5);
+        jTabbedPane1.addTab("Library Search", jPanel5);
+
+        jPanel11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel11.setPreferredSize(new java.awt.Dimension(228, 220));
+
+        jLabel32.setText("Title:");
+
+        jLabel33.setText("Author: ");
+
+        jLabel34.setText("Key Words:");
+
+        jLabel35.setText("Publication:");
+
+        jButtonSearch3.setText("Search");
+        jButtonSearch3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearch3jButtonSearchActionPerformed(evt);
+            }
+        });
+
+        jButtonClear3.setText("Clear");
+
+        jComboJournal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "IEEE Xplore", "Science Direct", "Springer" }));
+
+        jLabel36.setText("Journal:");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel32)
+                    .addComponent(jLabel33)
+                    .addComponent(jLabel34)
+                    .addComponent(jLabel35)
+                    .addComponent(jLabel36))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addComponent(jButtonSearch3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                                .addComponent(jButtonClear3))
+                            .addComponent(jTextKey, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextPub)))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextTi)
+                            .addComponent(jTextAu)
+                            .addComponent(jComboJournal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboJournal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel36))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(jTextTi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33)
+                    .addComponent(jTextAu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel34)
+                    .addComponent(jTextKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel35)
+                    .addComponent(jTextPub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSearch3)
+                    .addComponent(jButtonClear3))
+                .addContainerGap(201, Short.MAX_VALUE))
+        );
+
+        jTableJournals.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title", "Authors", "Year", "Publication", "ISBN"
+            }
+        ));
+        jScrollPane5.setViewportView(jTableJournals);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(517, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                    .addContainerGap(246, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(13, Short.MAX_VALUE)))
+        );
+
+        jTabbedPane1.addTab("Journal Search", jPanel6);
 
         jPanel1.add(jTabbedPane1);
         jTabbedPane1.setBounds(0, 70, 760, 480);
@@ -549,29 +717,32 @@ public class studPortal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-     public void displayIssueDetails(Issue iss){
-    //jLabelAuthor.setText(iss.);
-    jLabelCatalog.setText(iss.getcatalog());
-     jLabelDue.setText(iss.getDatedue().toString());
-    jLabelFine.setText(iss.getfine()+"");
-     jLabelStatus.setText(iss.getStatus());
-   jLabelTitle.setText(iss.gettitle());
+    public void displayIssueDetails(Issue iss) {
+        jLabelAuthor.setText(iss.getauthor());
+        jLabelCatalog.setText(iss.getcatalog());
+        jLabelDue.setText(iss.getDatedue().toString());
+        jLabelStatus.setText(iss.getStatus());
+        jLabelTitle.setText(iss.gettitle());
 
-         
-     }
-     
-     public void displayReserveDetails(Reserve res){
-          jLabelAuthor.setText(res.getauthor());
-    jLabelCatalog.setText(res.getcatalogNo());
-   //  jLabelDue.setText(res.getReserveDate());
-    jLabelFine.setText("0");
-  //   jLabelStatus.setText(res.get);
-   jLabelTitle.setText(res.gettitle());
-     }
-     
-     public void getReservedBooks(String id){
-         
+        if (iss.getfine() > 0) {
+            jLabelFine.setText(iss.getfine() + "");
+        } else {
+            jLabelFine.setText("");
+        }
+
+    }
+
+    public void displayReserveDetails(Reserve res) {
+        jLabelAuthor.setText(res.getauthor());
+        jLabelCatalog.setText(res.getcatalogNo());
+        //  jLabelDue.setText(res.getReserveDate());
+        jLabelFine.setText("0");
+        //   jLabelStatus.setText(res.get);
+        jLabelTitle.setText(res.gettitle());
+    }
+
+    public void getReservedBooks(String id) {
+
         List<Reserve> reserveList = null;
         BookCopyDA bookcopyDA;
 
@@ -587,65 +758,202 @@ public class studPortal extends javax.swing.JFrame {
 
         //		employeeTable.setModel(model);
         jTableReserved.setModel(model);
-     }    
-    
-    private void getUserBooks(String id)
-    {
+    }
+
+    private void getUserBooks(String id) {
         List<Issue> issueList = null;
-      try {
-        
-        studentbookDA DA = new studentbookDA();
-        issueList = DA.getCatBooks(id);
-        
-        }catch(Exception e){
+        try {
+
+            studentbookDA DA = new studentbookDA();
+            issueList = DA.getCatBooks(id);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-              
+
         IssueGrid model = new IssueGrid(issueList);
-        jTableOnLoan.setModel(model);      
+        jTableOnLoan.setModel(model);
     }
-    
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int row = jTableSearch.getSelectedRow();
-       // IssueDA issue = new IssueDA();
-        DateFormat dateFormat = null;
-        dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        dateFormat.setLenient(false);    
-        
-        Calendar cal = Calendar.getInstance();
-        Book temp = (Book) jTableSearch.getValueAt(row, BookGrid.OBJECT_COL);
-     
-         
-        String str = student.getStudentID();
-        try{
-            BookCopyDA da = new BookCopyDA();
-            da.reserveBookCopy(temp, str,  cal.getTime());
-            
-            
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
-             JOptionPane.showMessageDialog(this, "Book Reserved", "Success", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         PrevWindow.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
- 
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
         // TODO add your handling code here:
-        
+
         populateBookList();
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int row = jTableSearch.getSelectedRow();
+        // IssueDA issue = new IssueDA();
+        DateFormat dateFormat = null;
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        dateFormat.setLenient(false);
+
+        Calendar cal = Calendar.getInstance();
+        Book temp = (Book) jTableSearch.getValueAt(row, BookGrid.OBJECT_COL);
+
+        String str = student.getStudentID();
+        try {
+            BookCopyDA da = new BookCopyDA();
+            da.reserveAvailableCopy(temp, str, cal.getTime());
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        JOptionPane.showMessageDialog(this, "Book Reserved", "Success", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButtonSearch3jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearch3jButtonSearchActionPerformed
+
+        int journal = jComboJournal.getSelectedIndex();
+        getQueryParameters(journal);
+
+        //0 IEEE Xplore
+        //1 Science Direct (elsiever :json scidir)
+        //2 Springer
+
+    }//GEN-LAST:event_jButtonSearch3jButtonSearchActionPerformed
+
+    public void getQueryParameters(int jtype) {
+
+        Boolean title = true, author = true, publication = true, abst = true;
+        String ieeeparams = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?hc=1000&";
+        String springerparam = "http://api.springer.com/metadata/pam?q=";
+        String scidirparams = "http://api.elsevier.com/content/search/scidir?apiKey=ae63f3bc300cefaee6b7468b0717d7dd&query=";
+        String ti = jTextTi.getText();
+        String au = jTextAu.getText();
+        String pub = jTextPub.getText();
+        String key = jTextKey.getText();
+
+        title = !jTextTi.getText().isEmpty();
+        author = !jTextAu.getText().isEmpty();
+        publication = !jTextPub.getText().isEmpty();
+        abst = !jTextKey.getText().isEmpty();
+
+        //ttl key	aut srctitle
+        if (title && !author && !publication && !abst) {
+            ieeeparams += "ti=" + ti;
+            springerparam += "title:" + ti;
+            scidirparams += "tak(" + ti + ")";
+        } else if (author && !title && !publication && !abst) {
+            ieeeparams += "au=" + au;
+            springerparam += "name:" + au;
+            scidirparams += "aut(" + au + ")";
+        } else if (publication && !title && !author && !abst) {
+            ieeeparams += "jn=" + pub;
+            springerparam += "journal:" + pub;
+            scidirparams += "srctitle(" + pub + ")";
+        } else if (abst && !title && !author && !publication) {
+            ieeeparams += "ab=" + key;
+            springerparam += "keyword:" + key;
+            scidirparams += "tak(" + key + ")";
+        } else if (title && author && !publication && !abst) {
+            ieeeparams += "ti=" + ti + "&" + "au=" + au;
+            springerparam += "title:" + key + " AND " + "name:" + au;
+            scidirparams += "tak(" + pub + ") AND " + "aut(" + au + ")";
+        } else if (title && publication && !author && !abst) {
+            ieeeparams += "ti=" + ti + "&" + "jn=" + pub;
+            springerparam += "title:" + ti + " AND " + "journal:" + pub;
+            scidirparams += "tak(" + pub + ") AND " + "srctitle(" + pub + ")";
+        } else if (title && abst && !publication && !author) {
+            ieeeparams += "ti=" + ti + "&" + "ab=" + key;
+            springerparam += "title:" + ti + " AND " + "keyword:" + key;
+            scidirparams += "tak(" + ti + ")";
+        } else if (publication && author && !title && !abst) {
+            ieeeparams += "au=" + au + "&" + "jn=" + pub;
+            springerparam += "name:" + au + " AND " + "journal:" + pub;
+            scidirparams += "aut(" + au + ") AND " + "srctitle(" + pub + ")";
+        } else if (publication && abst && !title && !author) {
+            ieeeparams += "ab=" + key + "&" + "jn=" + pub;
+            springerparam += "keyword:" + key + " AND " + "journal:" + pub;
+            scidirparams += "tak(" + key + ") AND " + "srctitle(" + pub + ")";
+        } else if (author && abst && !title && !publication) {
+            ieeeparams += "au=" + au + "&" + "ab=" + key;
+            springerparam += "name:" + au + " AND " + "keyword:" + key;
+            scidirparams += "tak(" + key + ") AND " + "aut(" + au + ")";
+        } else if (title && author && publication && !abst) {
+            ieeeparams += "au=" + au + "&" + "jn=" + pub + "&" + "ti=" + ti;
+            springerparam += "name:" + au + " AND " + "journal:" + pub + " AND " + "title:" + ti;
+            scidirparams += "tak(" + ti + ") AND " + "aut(" + au + ")" + "srctitle(" + pub + ")";
+        } else if (title && author && !publication && abst) {
+            ieeeparams += "au=" + au + "&" + "ab=" + key + "&" + "ti=" + ti;
+            springerparam += "name:" + au + " AND " + "keyword:" + key + " AND " + "title:" + ti;
+            scidirparams += "tak(" + ti + ") AND " + "aut(" + au + ")";
+        } else if (title && !author && publication && abst) {
+            ieeeparams += "ab=" + key + "&" + "jn=" + pub + "&" + "ti=" + ti;
+            springerparam += "keyword:" + key + " AND " + "journal:" + pub + " AND " + "title:" + ti;
+            scidirparams += "tak(" + key + ") AND " + "srctitle(" + pub + ")";
+        } else if (!title && author && publication && abst) {
+            ieeeparams += "au=" + au + "&" + "jn=" + pub + "&" + "ab=" + key;
+            springerparam += "name:" + au + " AND " + "journal:" + pub + " AND " + "keyword:" + key;
+            scidirparams += "srctitle(" + pub + ") AND " + "aut(" + au + ") AND " + "tak(" + key + ")";
+        } else {
+            ieeeparams += "au=" + au + "&" + "jn=" + pub + "&" + "ti=" + ti + "&" + "ab=" + key;
+            springerparam += "name:" + au + " AND " + "journal:" + pub + " AND " + "keyword:" + key + " AND " + "title:" + ti;
+            scidirparams += "srctitle(" + pub + ") AND " + "aut(" + au + ") AND " + "tak(" + ti + ")";
+        }
+
+        //  System.out.println(ieeeparams);
+        if (jtype == 0) {
+            populateJournals(jtype, ieeeparams);
+        } else if (jtype == 2) {
+            springerparam += "&p=100&api_key=bec92608fa6635103c9fc0b722a6fadf";
+            populateJournals(jtype, springerparam);
+        } else {
+            populateJournals(jtype, scidirparams);
+        }
+    }
+
+    public void populateJournals(int journal, String url) {
+        List<Journal> jList = null;
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        System.out.println(url);
+
+        try {
+            SAXParser saxParser = saxParserFactory.newSAXParser();
+
+            //jList = hhh.parseJson();
+            if (journal == 0) {
+                XMLHandlerIEEE handler = new XMLHandlerIEEE();
+                saxParser.parse(url, handler);
+                jList = handler.getJournalList();
+
+            } else if (journal == 2) {
+                XMLHandlerSpringer handler = new XMLHandlerSpringer();
+                saxParser.parse(url, handler);
+                jList = handler.getJournalList();
+            } else {
+                JSONHandlerElsiever handler = new JSONHandlerElsiever(url);//JSONParse
+                // saxParser.parse(url, handler);
+                jList = handler.parseJson();
+
+            }
+
+            if (jList == null) {
+                JOptionPane.showMessageDialog(this, "Your query returned 0 records", "No Results", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JournalGrid jmodel = new JournalGrid(jList);
+                jTableJournals.setModel(jmodel);
+            }
+
+            //print employee information
+            //for(Journal emp : jList)
+            //    System.out.println(emp);
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void populateBookList() {
-        
+
         String title, author, pub, isbn;
 
         title = jTextField9.getText();
@@ -665,17 +973,16 @@ public class studPortal extends javax.swing.JFrame {
         }
 
         BookGrid model = new BookGrid(bookList);
-        
+
         //removeColumn(javax.swing.table.TableColumn)
         jTableSearch.setModel(model);
         //jTableSearch.getColumn("Copies");
         javax.swing.table.TableColumn tc = jTableSearch.getColumnModel().getColumn(5);
-       //  TableColumn tcol = jTableSearch.getColumnModel().getColumn(5);
-          jTableSearch.getColumnModel().removeColumn(tc);
-        
+        //  TableColumn tcol = jTableSearch.getColumnModel().getColumn(5);
+        jTableSearch.getColumnModel().removeColumn(tc);
+
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -718,20 +1025,15 @@ public class studPortal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButtonClear;
-    private javax.swing.JButton jButtonClear1;
     private javax.swing.JButton jButtonClear2;
-    private javax.swing.JButton jButtonSearch;
-    private javax.swing.JButton jButtonSearch1;
+    private javax.swing.JButton jButtonClear3;
     private javax.swing.JButton jButtonSearch2;
+    private javax.swing.JButton jButtonSearch3;
+    private javax.swing.JComboBox jComboJournal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -739,15 +1041,16 @@ public class studPortal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -762,31 +1065,29 @@ public class studPortal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTableJournals;
     private javax.swing.JTable jTableOnLoan;
     private javax.swing.JTable jTableReserved;
     private javax.swing.JTable jTableSearch;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextAu;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextKey;
+    private javax.swing.JTextField jTextPub;
+    private javax.swing.JTextField jTextTi;
     // End of variables declaration//GEN-END:variables
 }

@@ -85,17 +85,15 @@ public class BookCopyDA {
      public List<Reserve> getReservedBooks() throws Exception {
         List<Reserve> blist = new ArrayList<Reserve>();
         PreparedStatement myStmt = null;
-        String sql = "select r.reserveID,c.bkCopyID. b.bk_title,b.bk_author,c.bkCatNum ,r.StudentID,r.reserveDate,r.pickupDate from books b,bookcopy c,reserve r "
+        String sql = "select r.reserveID,c.bkCopyID, b.bk_title,b.bk_author,c.bkCatNum ,r.StudentID,r.reserveDate,r.pickupDate from books b,bookcopy c,reserve r "
                 +    " where b.bk_id = c.bk_id and c.bkCopyID = r.bookCopyId and c.copyStat_id =3";
 
         ResultSet myRs = null;
 
         try {
-            myStmt = db.prepareStatement(sql);
-           
+            myStmt = db.prepareStatement(sql);           
           //  myStmt.setString(4, "%" + isbn + "%");
             myRs = myStmt.executeQuery();
-
             while (myRs.next()) {
 
                 int rid = myRs.getInt("reserveID");
@@ -153,27 +151,41 @@ public class BookCopyDA {
             db.close();
         }
     }
-     
-    public void reserveBookCopy(Book bc,String studentid,Date rDate) throws Exception {
+     //get book copies for this book which are available
+    public void reserveAvailableCopy(Book bc,String studentid,Date rDate) throws Exception {
         PreparedStatement myStmt = null;
-        String sql = "insert into reserve (bookCopyId ,StudentID, reserveDate) values (?,?,?)";        
+        PreparedStatement myStmtsrch = null;
+          ResultSet myRs = null;
+        String sql = "insert into reserve (bookCopyId ,StudentID, reserveDate) values (?,?,?)"; 
+        String search = " select bkcopyid from bookcopy where bk_id = ? and copyStat_id = 1 limit 1 "; 
+        int id = 0;
         java.sql.Date date = null;
         
         try {
             // prepare statement
-            myStmt = db.prepareStatement(sql);
+            
+            myStmtsrch = db.prepareStatement(search);
+            myStmtsrch.setInt(1,bc.getBookId());           
+            
+            myRs = myStmt.executeQuery();
 
+            while (myRs.next()) {
+                id = myRs.getInt("bkcopyid");
+            }
+            myStmt = db.prepareStatement(sql);           
+            
             if (rDate != null) {
                  date = new java.sql.Date(rDate.getTime());
             }
             // set params
-            myStmt.setInt(1, bc.getBookId());
+            myStmt.setInt(1, id);
           //  myStmt.setString(2, bc.getedition());
             myStmt.setString(2,studentid);
             myStmt.setDate(3,date);
           
 			// execute SQL
             myStmt.executeUpdate();
+            updateBookStatus(id, 3);
 
         } finally {
             db.close();
@@ -209,7 +221,7 @@ public class BookCopyDA {
     }
     
     
-    public void updateBookStatus(BookCopy bc, int status) throws Exception {
+    public void updateBookStatus(int bc, int status) throws Exception {
         PreparedStatement myStmt = null;
         String sql = "update bookcopy set copyStat_id=? where bkCopyID=?";
 
@@ -219,7 +231,7 @@ public class BookCopyDA {
 
             // set params
             myStmt.setInt(1, status);
-            myStmt.setInt(2, bc.getId());
+            myStmt.setInt(2, bc);
 			// execute SQL
             myStmt.executeUpdate();
 

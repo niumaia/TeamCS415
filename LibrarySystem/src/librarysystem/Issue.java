@@ -11,19 +11,19 @@ public class Issue {
     private Date dateOut;
     private Date dateDue;
     private int due;
-    private int fine;
+    private double fine;
 
     private String catalog;
     private String title;
-    
+    private String author;
     private String status;
 
-    public Issue(int copy, String studentID, Date dateIn, Date dateOut, Date dateDue, int due, int fine) {
+    public Issue(int copy, String studentID, Date dateIn, Date dateOut, Date dateDue, int due, double fine) {
 
         this(0, copy, studentID, dateOut, dateDue, due, fine);
     }
 
-    public Issue(int id, int copy, String studentID, Date dateOut, Date dateDue, int due, int fine) {
+    public Issue(int id, int copy, String studentID, Date dateOut, Date dateDue, int due, double fine) {
         super();
         this.id = id;
         this.copy = copy;
@@ -35,12 +35,12 @@ public class Issue {
         this.fine = fine;
     }
 
-    public Issue(int id, String t, String catalog, String st, Date dateDue,Date d, int fine) {
+    public Issue(int id, String t,String auth, String catalog, String st, Date dateDue,Date d, double fine) {
         super();
         this.id = id;
         this.title = t;
         this.catalog = catalog;
-        //this.dateIn = dateIn;
+        this.author = auth;
         this.status = st;
         this.dateDue = dateDue;
         this.dateOut = d;
@@ -84,6 +84,10 @@ public class Issue {
         return title;
     }
 
+    public String getauthor() {
+        return author;
+    }
+    
     public void settitle(String s) {
         this.title = s;
     }
@@ -96,7 +100,7 @@ public class Issue {
         this.copy = i;
     }
 
-    public int getfine() {
+    public double getfine() {
         return fine;
     }
 

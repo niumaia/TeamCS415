@@ -201,30 +201,22 @@ public class bookDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
-        // TODO add your handling code here:
-        BookDA bookDA = null;
+    public void processBook(String title,String author, String publisher,String isbn,String edition)
+    {
+          BookDA bookDA = null;
         try{
             bookDA = new BookDA();
             }catch(Exception e)
                     {                        
-                    }
-        
-        String title,author,pub,isbn,edn;
-        title = jTextTitle.getText();
-        author = jTextAuthor.getText();
-        pub = jTextPub.getText();
-        isbn = jTextISBN.getText();
-        edn = jTextEdition.getText();
-        
+                    }        
         
         if(isUpdate) //update existing book
         {
             book.setauthor(author);
             book.setisbn(isbn);
-            book.setpublisher(pub);
+            book.setpublisher(publisher);
             book.settitle(title);
-            book.setedition(edn);
+            book.setedition(edition);
             
             try{
             bookDA.updateBook(book);
@@ -234,18 +226,29 @@ public class bookDialog extends javax.swing.JDialog {
             
         }else          //add new book
         {
-            Book b = new Book(title,author,pub,isbn,edn);
+            Book b = new Book(title,author,publisher,isbn,edition);
             
             try{
             bookDA.addBook(b);
             }catch(Exception e)
                     {                        
                     }
-            
         }
         
          mainForm.populateBookList();
          setVisible(false);
+    }
+    
+    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
+        // TODO add your handling code here:
+        String title,author,pub,isbn,edn;
+        title = jTextTitle.getText();
+        author = jTextAuthor.getText();
+        pub = jTextPub.getText();
+        isbn = jTextISBN.getText();
+        edn = jTextEdition.getText();
+        
+      processBook(title,author,pub,isbn,edn);
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
